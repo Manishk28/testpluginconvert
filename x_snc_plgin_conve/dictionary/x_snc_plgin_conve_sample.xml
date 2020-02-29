@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Sample" max_length="40" name="x_snc_plgin_conve_sample" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Sample Plugin" max_length="40" name="sample_plugin" type="string"/>
+        <element attributes="omit_sys_original=true" label="Test plugin" max_length="20" name="test_plugin" type="currency"/>
+    </element>
+</database>

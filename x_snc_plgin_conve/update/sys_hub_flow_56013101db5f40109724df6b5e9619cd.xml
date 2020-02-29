@@ -1,0 +1,1862 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>false</active>
+        <annotation>Reset a local ServiceNow user password</annotation>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category display_value="ServiceNow User Management">4e1c610673872300a37f2c5ee2f6a76a</category>
+        <compiler_build/>
+        <copied_from>5430b79673eb2300d49c2ea3c4f6a7bd</copied_from>
+        <copied_from_name>Password Reset</copied_from_name>
+        <description>&lt;html&gt;&lt;/html&gt;&lt;p&gt;Resets the password. Provides a temporary password and prompts user to change the password. Ensures that new password conforms to the password format and history policies.&lt;/p&gt;
+ &lt;p&gt;&lt;b&gt;Inputs:&lt;/b&gt;
+  &lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Password Reset Request&lt;/b&gt; - Password request record.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Password&lt;/b&gt; - Password for the user being reset.&lt;/li&gt;&lt;/ul&gt;
+
+ &lt;p&gt;&lt;b&gt;Outputs:&lt;/b&gt;
+  &lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Status&lt;/b&gt; - Will be set to Success if the request succeeds or Error if a failure occurs.&lt;/li&gt;&lt;li&gt;&lt;b&gt;Error Message&lt;/b&gt; - Reason for error. Populated only when an error occurs.&lt;/li&gt;&lt;/ul&gt;
+
+ &lt;p&gt;&lt;b&gt;Error Messages:&lt;/b&gt;
+  &lt;/p&gt;&lt;ul&gt;&lt;li&gt;Invalid User Record&lt;/li&gt;&lt;li&gt;Invalid Request&lt;/li&gt;&lt;li&gt;The request has no process associated with it.&lt;/li&gt;&lt;li&gt;The user associated with request is not valid.&lt;/li&gt;&lt;li&gt;The process associated with request is not valid.&lt;/li&gt;&lt;li&gt;There are more than one credential stores defined for process.&lt;/li&gt;&lt;li&gt;The credential store associated with request is not valid.&lt;/li&gt;&lt;li&gt;You used that password recently. Choose a different password&lt;/li&gt;&lt;/ul&gt;
+&lt;html&gt;&lt;/html&gt;</description>
+        <internal_name>copy_of_password_reset</internal_name>
+        <label_cache>[{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.user_email","label":"1➛User Email","reference_display":"User Email","type":"string","base_type":"string"},{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.user_record","label":"1➛User Record","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference"},{"name":"5bd7aa27-17e8-40be-8a07-4921343f0fd5.table_name","label":"2.2.3.1➛Password Reset Activity Log Table","reference":"pwd_reset_activity","reference_display":"Password Reset Activity Log","type":"table_name","base_type":"table_name"},{"name":"5bd7aa27-17e8-40be-8a07-4921343f0fd5.record","label":"2.2.3.1➛Password Reset Activity Log Record","reference":"pwd_reset_activity","reference_display":"Password Reset Activity Log","type":"reference","base_type":"reference"},{"name":"6129c23f-26d5-4a24-9337-2173db4e5143.table_name","label":"2.2.3.1➛Password Reset Request Table","reference":"pwd_reset_request","reference_display":"Password Reset Request","type":"table_name","base_type":"table_name"},{"name":"6129c23f-26d5-4a24-9337-2173db4e5143.record","label":"2.2.3.1➛Password Reset Request Record","reference":"pwd_reset_request","reference_display":"Password Reset Request","type":"reference","base_type":"reference"},{"name":"5fea675e-ab23-4cb6-91c0-22fba2075b6c.table_name","label":"2.2.2.2➛Password Reset Activity Log Table","reference":"pwd_reset_activity","reference_display":"Password Reset Activity Log","type":"table_name","base_type":"table_name"},{"name":"5fea675e-ab23-4cb6-91c0-22fba2075b6c.record","label":"2.2.2.2➛Password Reset Activity Log Record","reference":"pwd_reset_activity","reference_display":"Password Reset Activity Log","type":"reference","base_type":"reference"},{"name":"4d46a480-34e2-452b-aba7-c2012178b20b.table_name","label":"2.2.2.1➛Password Reset Request Table","reference":"pwd_reset_request","reference_display":"Password Reset Request","type":"table_name","base_type":"table_name"},{"name":"4d46a480-34e2-452b-aba7-c2012178b20b.record","label":"2.2.2.1➛Password Reset Request Record","reference":"pwd_reset_request","reference_display":"Password Reset Request","type":"reference","base_type":"reference"},{"name":"e51910e4-52fe-4833-a797-b7d03e17c058.error_message","label":"2.2.2.1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"e51910e4-52fe-4833-a797-b7d03e17c058.status","label":"2.2.2.1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"bbff3131-c969-4047-a1f5-2a27471b51fd.error_message","label":"2.2.2.1➛Error Message","type":"string","base_type":"string"},{"name":"bbff3131-c969-4047-a1f5-2a27471b51fd.status","label":"2.2.2.1➛Status","type":"choice","base_type":"choice"},{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.user_name","label":"1➛User Name","reference_display":"User Name","type":"string","base_type":"string"},{"name":"07ce3f4d-ff05-4284-8b11-52c478334e6b.error_message","label":"2.2.1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"07ce3f4d-ff05-4284-8b11-52c478334e6b.status","label":"2.2.1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"subflow.password","label":"Input➛Password","reference":"","reference_display":"","type":"password2","base_type":"password2","column_name":""},{"name":"subflow.password_reset_request.user","label":"Input➛Password Reset Request➛User","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"pwd_reset_request","column_name":"user"},{"name":"8807ddbb-8309-4b5a-b0a4-8d294551ae5e.history_check_passed","label":"2.1➛History Check Passed","reference_display":"History Check Passed","type":"choice","base_type":"choice"},{"name":"8807ddbb-8309-4b5a-b0a4-8d294551ae5e.error_message","label":"2.1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"8807ddbb-8309-4b5a-b0a4-8d294551ae5e.status","label":"2.1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"subflow.password_reset_request","label":"Input➛Password Reset Request","reference":"pwd_reset_request","reference_display":"Password Reset Request","type":"reference","base_type":"reference","column_name":""},{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.unlock_account5","label":"1➛Unlock Account","reference_display":"Unlock Account","type":"boolean","base_type":"boolean"},{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.unlock_account","label":"1➛Unlock Account","reference_display":"Unlock Account","type":"boolean","base_type":"boolean"},{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.force_password_change","label":"1➛Force Password Change","reference_display":"Force Password Change","type":"boolean","base_type":"boolean"},{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.error_message","label":"1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.status","label":"1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"3edd0096-2f44-4d45-8c09-49f32f3cd9b2.error_message","label":"3.1➛error_message","reference_display":"error_message","type":"string","base_type":"string"},{"name":"3edd0096-2f44-4d45-8c09-49f32f3cd9b2.status","label":"3.1➛status","reference_display":"status","type":"choice","base_type":"choice"},{"name":"fd4905db-cbd8-460a-94c0-382d1234cfa5.error_message","label":"1➛Error Message","type":"string","base_type":"string"},{"name":"fd4905db-cbd8-460a-94c0-382d1234cfa5.status","label":"1➛Status","type":"choice","base_type":"choice"},{"name":"f6572e1c-1dd5-488f-aa74-e7fa698148ea.error_message","label":"2.1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"f6572e1c-1dd5-488f-aa74-e7fa698148ea.status","label":"2.1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"04a47f38-af30-462c-96d7-92102bbf19f7.error_message","label":"1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"04a47f38-af30-462c-96d7-92102bbf19f7.status","label":"1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"subflow.new_password","label":"Input➛New Password","reference":"","reference_display":"","type":"password2","base_type":"password2","column_name":""},{"name":"subflow.user","label":"Input➛User","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","column_name":""},{"name":"17b4ff78-ab63-4ca4-82f5-16d602073a34.error_message","label":"1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"17b4ff78-ab63-4ca4-82f5-16d602073a34.status","label":"1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"subflow.variable3","label":"Input➛Unlock Account","reference":"","reference_display":"","type":"boolean","base_type":"boolean","column_name":""},{"name":"1388a439-6dc3-4217-9b40-8463ba69f2f2.status","label":"2.1.1➛Status","type":"choice","base_type":"choice"},{"name":"1388a439-6dc3-4217-9b40-8463ba69f2f2.error_message","label":"2.1.1➛Error Message","type":"string","base_type":"string"},{"name":"afb4646f-021c-4d65-950c-c30595a6b3d3.status","label":"1.1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"afb4646f-021c-4d65-950c-c30595a6b3d3.error_message","label":"1.1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"subflow.force_password_change","label":"Input➛Force Password Change","reference":"","reference_display":"","type":"boolean","base_type":"boolean","column_name":""},{"name":"subflow.unlock_account","label":"Input➛Unlock Account","reference":"","reference_display":"","type":"boolean","base_type":"boolean","column_name":""},{"name":"67a3c54e-37bc-44b3-a51c-9df18e710c00.status","label":"1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"67a3c54e-37bc-44b3-a51c-9df18e710c00.error_message","label":"1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"f4188d82-c2cb-4fcd-b333-4c1ccf941589.status","label":"1.1➛Status","reference_display":"Status","type":"choice","base_type":"choice"},{"name":"f4188d82-c2cb-4fcd-b333-4c1ccf941589.error_message","label":"1.1➛Error Message","reference_display":"Error Message","type":"string","base_type":"string"},{"name":"6ff429dd-3b7f-47b8-b233-04122b77cb59.status","label":"3➛status","reference_display":"status","type":"choice","base_type":"choice"},{"name":"6ff429dd-3b7f-47b8-b233-04122b77cb59.error_message","label":"3➛error_message","reference_display":"error_message","type":"string","base_type":"string"},{"name":"6ff429dd-3b7f-47b8-b233-04122b77cb59.history_check_passed","label":"3➛history_check_passed","reference_display":"history_check_passed","type":"choice","base_type":"choice"},{"name":"d87882b7-c96a-40d4-af3b-df36e61c1825.temp_password","label":"1➛Temporary Password","reference_display":"Temporary Password","type":"password2","base_type":"password2"}]</label_cache>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <name>Copy of Password Reset</name>
+        <natlang/>
+        <outputs/>
+        <remote_trigger_id/>
+        <run_as>system</run_as>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>draft</status>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:18</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>56013101db5f40109724df6b5e9619cd</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Copy of Password Reset</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Sample-test-app-plgn-convert" source="x_snc_plgin_conve">c61f298ddb1f40109724df6b5e961962</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name>sys_hub_flow_56013101db5f40109724df6b5e9619cd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:21</sys_updated_on>
+        <type>subflow</type>
+    </sys_hub_flow>
+    <sys_translated_text action="delete_multiple" query="documentkey=56013101db5f40109724df6b5e9619cd"/>
+    <sys_variable_value action="delete_multiple" query="document_key=56013101db5f40109724df6b5e9619cd"/>
+    <sys_hub_flow_component action="delete_multiple" query="flow=56013101db5f40109724df6b5e9619cd^sys_idNOT IN3a017101db5f40109724df6b5e961930,76017101db5f40109724df6b5e961926,7e017101db5f40109724df6b5e961913,7e017101db5f40109724df6b5e96192b,ba017101db5f40109724df6b5e96191d,ba017101db5f40109724df6b5e961934,c7017101db5f40109724df6b5e961939,e2017101db5f40109724df6b5e96190f,f2017101db5f40109724df6b5e961923,f6017101db5f40109724df6b5e961917,fa017101db5f40109724df6b5e96191a,fe017101db5f40109724df6b5e96191f"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="User Password History Check">cdc66b9273eb2300d49c2ea3c4f6a732</action_type>
+        <action_type_parent display_value="User Password History Check">eab62b9273eb2300d49c2ea3c4f6a708</action_type_parent>
+        <comment/>
+        <compiled_snapshot>cdc66b9273eb2300d49c2ea3c4f6a732</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <order>2.1</order>
+        <parent_ui_id>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>3a017101db5f40109724df6b5e961930</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>8807ddbb-8309-4b5a-b0a4-8d294551ae5e</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=3a017101db5f40109724df6b5e961930"/>
+    <sys_element_mapping action="delete_multiple" query="id=3a017101db5f40109724df6b5e961930"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>password</field>
+        <id>3a017101db5f40109724df6b5e961930</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>32017101db5f40109724df6b5e961932</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_cdc66b9273eb2300d49c2ea3c4f6a732</table>
+        <value>{{subflow.password}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>user</field>
+        <id>3a017101db5f40109724df6b5e961930</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961931</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_cdc66b9273eb2300d49c2ea3c4f6a732</table>
+        <value>{{subflow.password_reset_request.user}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">7d0903cb73c073005ae12ea3c4f6a73c</block>
+        <comment/>
+        <connected_to>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</connected_to>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>3</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>76017101db5f40109724df6b5e961926</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>3ffa97df-b305-4b87-a771-c43ec128d814</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=76017101db5f40109724df6b5e961926"/>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">b6017101db5f40109724df6b5e961913</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2.2.3</order>
+        <outputs_assigned>status,error_message</outputs_assigned>
+        <outputs_to_assign/>
+        <outputs_to_assign/>
+        <parent_ui_id>71767020-b597-4968-830b-2fe60f232802</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961913</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <ui_id>6b20efe9-f668-4b2a-805c-99ae3ffbc434</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=7e017101db5f40109724df6b5e961913"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>7e017101db5f40109724df6b5e961913</document_key>
+        <order>0</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961916</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <value/>
+        <variable display_value="">ae013101db5f40109724df6b5e9619f0</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=7e017101db5f40109724df6b5e961913"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>error_message</field>
+        <id>7e017101db5f40109724df6b5e961913</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>3a017101db5f40109724df6b5e961916</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</table>
+        <value>{{07ce3f4d-ff05-4284-8b11-52c478334e6b.error_message}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>status</field>
+        <id>7e017101db5f40109724df6b5e961913</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e961916</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</table>
+        <value>{{07ce3f4d-ff05-4284-8b11-52c478334e6b.status}}</value>
+    </sys_element_mapping>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Get Configuration Variables for Reset Process">d195cf4773c073005ae12ea3c4f6a7ad</action_type>
+        <action_type_parent display_value="Get Configuration Variables for Reset Process">ab754b4773c073005ae12ea3c4f6a7f4</action_type_parent>
+        <comment/>
+        <compiled_snapshot>d195cf4773c073005ae12ea3c4f6a7ad</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e96192b</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>d87882b7-c96a-40d4-af3b-df36e61c1825</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=7e017101db5f40109724df6b5e96192b"/>
+    <sys_element_mapping action="delete_multiple" query="id=7e017101db5f40109724df6b5e96192b"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>request_id</field>
+        <id>7e017101db5f40109724df6b5e96192b</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>3e017101db5f40109724df6b5e96192d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_d195cf4773c073005ae12ea3c4f6a7ad</table>
+        <value>{{subflow.password_reset_request}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">350903cb73c073005ae12ea3c4f6a728</block>
+        <comment/>
+        <connected_to>71767020-b597-4968-830b-2fe60f232802</connected_to>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>2.3</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>ba017101db5f40109724df6b5e96191d</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>00efb62b-3205-4186-86e7-f3619e107636</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=ba017101db5f40109724df6b5e96191d"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Update Password">98e4eb5273eb2300d49c2ea3c4f6a719</action_type>
+        <action_type_parent display_value="Update Password">a5d46b5273eb2300d49c2ea3c4f6a7c0</action_type_parent>
+        <comment/>
+        <compiled_snapshot>98e4eb5273eb2300d49c2ea3c4f6a719</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <order>2.2.1</order>
+        <parent_ui_id>71767020-b597-4968-830b-2fe60f232802</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>ba017101db5f40109724df6b5e961934</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>07ce3f4d-ff05-4284-8b11-52c478334e6b</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=ba017101db5f40109724df6b5e961934"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>ba017101db5f40109724df6b5e961934</document_key>
+        <order>4</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>43017101db5f40109724df6b5e961937</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value>0</value>
+        <variable display_value="">a8e4eb5273eb2300d49c2ea3c4f6a72f</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>ba017101db5f40109724df6b5e961934</document_key>
+        <order>3</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>8f017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value>0</value>
+        <variable display_value="">e4e4eb5273eb2300d49c2ea3c4f6a729</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=ba017101db5f40109724df6b5e961934"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>force_password_change</field>
+        <id>ba017101db5f40109724df6b5e961934</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>87017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_98e4eb5273eb2300d49c2ea3c4f6a719</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.force_password_change}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>password</field>
+        <id>ba017101db5f40109724df6b5e961934</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>f2017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_98e4eb5273eb2300d49c2ea3c4f6a719</table>
+        <value>{{subflow.password}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>unlock_account</field>
+        <id>ba017101db5f40109724df6b5e961934</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>4b017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_98e4eb5273eb2300d49c2ea3c4f6a719</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.unlock_account}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>user</field>
+        <id>ba017101db5f40109724df6b5e961934</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>0f017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_98e4eb5273eb2300d49c2ea3c4f6a719</table>
+        <value>{{subflow.password_reset_request.user}}</value>
+    </sys_element_mapping>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Email Decrypted Password">0406c63f738873005ae12ea3c4f6a7d1</action_type>
+        <action_type_parent display_value="Email Password">10f50efb738873005ae12ea3c4f6a71f</action_type_parent>
+        <comment/>
+        <compiled_snapshot>0406c63f738873005ae12ea3c4f6a7d1</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <order>2.2.2.1</order>
+        <parent_ui_id>36e5f853-b0b2-4f63-81de-b855c69576c6</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>c7017101db5f40109724df6b5e961939</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>e51910e4-52fe-4833-a797-b7d03e17c058</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=c7017101db5f40109724df6b5e961939"/>
+    <sys_element_mapping action="delete_multiple" query="id=c7017101db5f40109724df6b5e961939"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>password</field>
+        <id>c7017101db5f40109724df6b5e961939</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>cf017101db5f40109724df6b5e96193a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_0406c63f738873005ae12ea3c4f6a7d1</table>
+        <value>{{subflow.password}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>process_reset_request</field>
+        <id>c7017101db5f40109724df6b5e961939</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>0f017101db5f40109724df6b5e96193a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_0406c63f738873005ae12ea3c4f6a7d1</table>
+        <value>{{subflow.password_reset_request}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">c78bc2bf738873005ae12ea3c4f6a77d</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2.2.2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>71767020-b597-4968-830b-2fe60f232802</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>e2017101db5f40109724df6b5e96190f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <ui_id>36e5f853-b0b2-4f63-81de-b855c69576c6</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=e2017101db5f40109724df6b5e96190f"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>e2017101db5f40109724df6b5e96190f</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961912</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <value>Password updated successfully</value>
+        <variable display_value="">f0af19c1c32632002841b63b12d3aea3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=e2017101db5f40109724df6b5e96190f"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition</field>
+        <id>e2017101db5f40109724df6b5e96190f</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e961912</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value>{{07ce3f4d-ff05-4284-8b11-52c478334e6b.status}}=Success</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition_name</field>
+        <id>e2017101db5f40109724df6b5e96190f</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>3a017101db5f40109724df6b5e961912</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">750903cb73c073005ae12ea3c4f6a735</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>3.1</order>
+        <outputs_assigned>status,error_message</outputs_assigned>
+        <outputs_to_assign/>
+        <outputs_to_assign/>
+        <parent_ui_id>3ffa97df-b305-4b87-a771-c43ec128d814</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>f2017101db5f40109724df6b5e961923</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>bd5bc92d-0b2b-4f92-a3de-cc64c596ca87</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=f2017101db5f40109724df6b5e961923"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>f2017101db5f40109724df6b5e961923</document_key>
+        <order>0</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961925</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value/>
+        <variable display_value="">ae013101db5f40109724df6b5e9619f0</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=f2017101db5f40109724df6b5e961923"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>error_message</field>
+        <id>f2017101db5f40109724df6b5e961923</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>3a017101db5f40109724df6b5e961925</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.error_message}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>status</field>
+        <id>f2017101db5f40109724df6b5e961923</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e961925</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.status}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">f50903cb73c073005ae12ea3c4f6a719</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2.2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>f6017101db5f40109724df6b5e961917</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <ui_id>71767020-b597-4968-830b-2fe60f232802</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=f6017101db5f40109724df6b5e961917"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>f6017101db5f40109724df6b5e961917</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>f2017101db5f40109724df6b5e96191a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <value>New password is valid</value>
+        <variable display_value="">f0af19c1c32632002841b63b12d3aea3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=f6017101db5f40109724df6b5e961917"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition</field>
+        <id>f6017101db5f40109724df6b5e961917</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>72017101db5f40109724df6b5e96191a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value>{{8807ddbb-8309-4b5a-b0a4-8d294551ae5e.history_check_passed}}=True</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition_name</field>
+        <id>f6017101db5f40109724df6b5e961917</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>be017101db5f40109724df6b5e961919</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">f10903cb73c073005ae12ea3c4f6a721</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2.3.1</order>
+        <outputs_assigned>status,error_message</outputs_assigned>
+        <outputs_to_assign/>
+        <parent_ui_id>00efb62b-3205-4186-86e7-f3619e107636</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e96191a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>43c21a35-4879-4e21-8cdc-ee034af21e68</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=fa017101db5f40109724df6b5e96191a"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>fa017101db5f40109724df6b5e96191a</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>b2017101db5f40109724df6b5e96191d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value>You used that password recently. Choose a different password.</value>
+        <variable display_value="">62013101db5f40109724df6b5e9619fb</variable>
+    </sys_variable_value>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">350903cb73c073005ae12ea3c4f6a72e</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>fe017101db5f40109724df6b5e96191f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=fe017101db5f40109724df6b5e96191f"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>fe017101db5f40109724df6b5e96191f</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e961922</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value>Request processed successfully</value>
+        <variable display_value="">f0af19c1c32632002841b63b12d3aea3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=fe017101db5f40109724df6b5e96191f"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition</field>
+        <id>fe017101db5f40109724df6b5e96191f</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>7a017101db5f40109724df6b5e961922</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.status}}=Success</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition_name</field>
+        <id>fe017101db5f40109724df6b5e96191f</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>b6017101db5f40109724df6b5e961922</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=56013101db5f40109724df6b5e9619cd^sys_idNOT INe6013101db5f40109724df6b5e9619cf"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>56013101db5f40109724df6b5e9619cd</id>
+        <name>Copy of Password Reset</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:18</sys_created_on>
+        <sys_id>e6013101db5f40109724df6b5e9619cf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:18</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_hub_flow_input action="delete_multiple" query="model=56013101db5f40109724df6b5e9619cd^sys_idNOT INaa013101db5f40109724df6b5e9619e7,e2013101db5f40109724df6b5e9619d5"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=reference</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table>pwd_reset_request</choice_table>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>password_reset_request</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="Reference">reference</internal_type>
+        <label>Password Reset Request</label>
+        <mandatory>true</mandatory>
+        <max_length>32</max_length>
+        <model display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</model>
+        <model_id>56013101db5f40109724df6b5e9619cd</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_56013101db5f40109724df6b5e9619cd</name>
+        <next_element/>
+        <order>0</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference display_value="" name="pwd_reset_request">pwd_reset_request</reference>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>aa013101db5f40109724df6b5e9619e7</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=password2</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>password</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">password2</internal_type>
+        <label>Password</label>
+        <mandatory>true</mandatory>
+        <max_length>255</max_length>
+        <model display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</model>
+        <model_id>56013101db5f40109724df6b5e9619cd</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_56013101db5f40109724df6b5e9619cd</name>
+        <next_element/>
+        <order>0</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:18</sys_created_on>
+        <sys_id>e2013101db5f40109724df6b5e9619d5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:18</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_flow_output action="delete_multiple" query="model=56013101db5f40109724df6b5e9619cd^sys_idNOT IN62013101db5f40109724df6b5e9619fb,ae013101db5f40109724df6b5e9619f0"/>
+    <sys_hub_flow_output action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=string</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>error_message</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>Error Message</label>
+        <mandatory>false</mandatory>
+        <max_length>8000</max_length>
+        <model display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</model>
+        <model_id>56013101db5f40109724df6b5e9619cd</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</name>
+        <next_element/>
+        <order>1</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_output</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>62013101db5f40109724df6b5e9619fb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_output>
+    <sys_hub_flow_output action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=choice</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice>3</choice>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value>Error</default_value>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>status</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="Choice">choice</internal_type>
+        <label>Status</label>
+        <mandatory>false</mandatory>
+        <max_length>40</max_length>
+        <model display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</model>
+        <model_id>56013101db5f40109724df6b5e9619cd</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</name>
+        <next_element/>
+        <order>0</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_output</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>ae013101db5f40109724df6b5e9619f0</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_output>
+    <sys_hub_action_instance action="delete_multiple" query="flow=56013101db5f40109724df6b5e9619cd^sys_idNOT IN3a017101db5f40109724df6b5e961930,7e017101db5f40109724df6b5e96192b,ba017101db5f40109724df6b5e961934,c7017101db5f40109724df6b5e961939"/>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="User Password History Check">cdc66b9273eb2300d49c2ea3c4f6a732</action_type>
+        <action_type_parent display_value="User Password History Check">eab62b9273eb2300d49c2ea3c4f6a708</action_type_parent>
+        <comment/>
+        <compiled_snapshot>cdc66b9273eb2300d49c2ea3c4f6a732</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <order>2.1</order>
+        <parent_ui_id>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>3a017101db5f40109724df6b5e961930</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>8807ddbb-8309-4b5a-b0a4-8d294551ae5e</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=3a017101db5f40109724df6b5e961930"/>
+    <sys_element_mapping action="delete_multiple" query="id=3a017101db5f40109724df6b5e961930"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>password</field>
+        <id>3a017101db5f40109724df6b5e961930</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>32017101db5f40109724df6b5e961932</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_cdc66b9273eb2300d49c2ea3c4f6a732</table>
+        <value>{{subflow.password}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>user</field>
+        <id>3a017101db5f40109724df6b5e961930</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961931</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_cdc66b9273eb2300d49c2ea3c4f6a732</table>
+        <value>{{subflow.password_reset_request.user}}</value>
+    </sys_element_mapping>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Get Configuration Variables for Reset Process">d195cf4773c073005ae12ea3c4f6a7ad</action_type>
+        <action_type_parent display_value="Get Configuration Variables for Reset Process">ab754b4773c073005ae12ea3c4f6a7f4</action_type_parent>
+        <comment/>
+        <compiled_snapshot>d195cf4773c073005ae12ea3c4f6a7ad</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e96192b</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>d87882b7-c96a-40d4-af3b-df36e61c1825</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=7e017101db5f40109724df6b5e96192b"/>
+    <sys_element_mapping action="delete_multiple" query="id=7e017101db5f40109724df6b5e96192b"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>request_id</field>
+        <id>7e017101db5f40109724df6b5e96192b</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>3e017101db5f40109724df6b5e96192d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_d195cf4773c073005ae12ea3c4f6a7ad</table>
+        <value>{{subflow.password_reset_request}}</value>
+    </sys_element_mapping>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Update Password">98e4eb5273eb2300d49c2ea3c4f6a719</action_type>
+        <action_type_parent display_value="Update Password">a5d46b5273eb2300d49c2ea3c4f6a7c0</action_type_parent>
+        <comment/>
+        <compiled_snapshot>98e4eb5273eb2300d49c2ea3c4f6a719</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <order>2.2.1</order>
+        <parent_ui_id>71767020-b597-4968-830b-2fe60f232802</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>ba017101db5f40109724df6b5e961934</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>07ce3f4d-ff05-4284-8b11-52c478334e6b</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=ba017101db5f40109724df6b5e961934"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>ba017101db5f40109724df6b5e961934</document_key>
+        <order>4</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>43017101db5f40109724df6b5e961937</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value>0</value>
+        <variable display_value="">a8e4eb5273eb2300d49c2ea3c4f6a72f</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_action_instance</document>
+        <document_key>ba017101db5f40109724df6b5e961934</document_key>
+        <order>3</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>8f017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value>0</value>
+        <variable display_value="">e4e4eb5273eb2300d49c2ea3c4f6a729</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=ba017101db5f40109724df6b5e961934"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>force_password_change</field>
+        <id>ba017101db5f40109724df6b5e961934</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>87017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_98e4eb5273eb2300d49c2ea3c4f6a719</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.force_password_change}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>password</field>
+        <id>ba017101db5f40109724df6b5e961934</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>f2017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_98e4eb5273eb2300d49c2ea3c4f6a719</table>
+        <value>{{subflow.password}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>unlock_account</field>
+        <id>ba017101db5f40109724df6b5e961934</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>4b017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_98e4eb5273eb2300d49c2ea3c4f6a719</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.unlock_account}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>user</field>
+        <id>ba017101db5f40109724df6b5e961934</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>0f017101db5f40109724df6b5e961936</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_98e4eb5273eb2300d49c2ea3c4f6a719</table>
+        <value>{{subflow.password_reset_request.user}}</value>
+    </sys_element_mapping>
+    <sys_hub_action_instance action="INSERT_OR_UPDATE">
+        <action_inputs/>
+        <action_inputs/>
+        <action_type display_value="Email Decrypted Password">0406c63f738873005ae12ea3c4f6a7d1</action_type>
+        <action_type_parent display_value="Email Password">10f50efb738873005ae12ea3c4f6a71f</action_type_parent>
+        <comment/>
+        <compiled_snapshot>0406c63f738873005ae12ea3c4f6a7d1</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <order>2.2.2.1</order>
+        <parent_ui_id>36e5f853-b0b2-4f63-81de-b855c69576c6</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>c7017101db5f40109724df6b5e961939</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>e51910e4-52fe-4833-a797-b7d03e17c058</ui_id>
+    </sys_hub_action_instance>
+    <sys_variable_value action="delete_multiple" query="document_key=c7017101db5f40109724df6b5e961939"/>
+    <sys_element_mapping action="delete_multiple" query="id=c7017101db5f40109724df6b5e961939"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>password</field>
+        <id>c7017101db5f40109724df6b5e961939</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>cf017101db5f40109724df6b5e96193a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_0406c63f738873005ae12ea3c4f6a7d1</table>
+        <value>{{subflow.password}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>process_reset_request</field>
+        <id>c7017101db5f40109724df6b5e961939</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>0f017101db5f40109724df6b5e96193a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_action_input_0406c63f738873005ae12ea3c4f6a7d1</table>
+        <value>{{subflow.password_reset_request}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="delete_multiple" query="flow=56013101db5f40109724df6b5e9619cd^sys_idNOT IN76017101db5f40109724df6b5e961926,7e017101db5f40109724df6b5e961913,ba017101db5f40109724df6b5e96191d,e2017101db5f40109724df6b5e96190f,f2017101db5f40109724df6b5e961923,f6017101db5f40109724df6b5e961917,fa017101db5f40109724df6b5e96191a,fe017101db5f40109724df6b5e96191f"/>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">7d0903cb73c073005ae12ea3c4f6a73c</block>
+        <comment/>
+        <connected_to>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</connected_to>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>3</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>76017101db5f40109724df6b5e961926</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>3ffa97df-b305-4b87-a771-c43ec128d814</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=76017101db5f40109724df6b5e961926"/>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">b6017101db5f40109724df6b5e961913</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2.2.3</order>
+        <outputs_assigned>status,error_message</outputs_assigned>
+        <outputs_to_assign/>
+        <outputs_to_assign/>
+        <parent_ui_id>71767020-b597-4968-830b-2fe60f232802</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961913</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <ui_id>6b20efe9-f668-4b2a-805c-99ae3ffbc434</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=7e017101db5f40109724df6b5e961913"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>7e017101db5f40109724df6b5e961913</document_key>
+        <order>0</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961916</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <value/>
+        <variable display_value="">ae013101db5f40109724df6b5e9619f0</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=7e017101db5f40109724df6b5e961913"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>error_message</field>
+        <id>7e017101db5f40109724df6b5e961913</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>3a017101db5f40109724df6b5e961916</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</table>
+        <value>{{07ce3f4d-ff05-4284-8b11-52c478334e6b.error_message}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>status</field>
+        <id>7e017101db5f40109724df6b5e961913</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e961916</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</table>
+        <value>{{07ce3f4d-ff05-4284-8b11-52c478334e6b.status}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">350903cb73c073005ae12ea3c4f6a728</block>
+        <comment/>
+        <connected_to>71767020-b597-4968-830b-2fe60f232802</connected_to>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>2.3</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>ba017101db5f40109724df6b5e96191d</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>00efb62b-3205-4186-86e7-f3619e107636</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=ba017101db5f40109724df6b5e96191d"/>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">c78bc2bf738873005ae12ea3c4f6a77d</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2.2.2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>71767020-b597-4968-830b-2fe60f232802</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>e2017101db5f40109724df6b5e96190f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <ui_id>36e5f853-b0b2-4f63-81de-b855c69576c6</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=e2017101db5f40109724df6b5e96190f"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>e2017101db5f40109724df6b5e96190f</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961912</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <value>Password updated successfully</value>
+        <variable display_value="">f0af19c1c32632002841b63b12d3aea3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=e2017101db5f40109724df6b5e96190f"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition</field>
+        <id>e2017101db5f40109724df6b5e96190f</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e961912</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value>{{07ce3f4d-ff05-4284-8b11-52c478334e6b.status}}=Success</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition_name</field>
+        <id>e2017101db5f40109724df6b5e96190f</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>3a017101db5f40109724df6b5e961912</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">750903cb73c073005ae12ea3c4f6a735</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>3.1</order>
+        <outputs_assigned>status,error_message</outputs_assigned>
+        <outputs_to_assign/>
+        <outputs_to_assign/>
+        <parent_ui_id>3ffa97df-b305-4b87-a771-c43ec128d814</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>f2017101db5f40109724df6b5e961923</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>bd5bc92d-0b2b-4f92-a3de-cc64c596ca87</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=f2017101db5f40109724df6b5e961923"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>f2017101db5f40109724df6b5e961923</document_key>
+        <order>0</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>7e017101db5f40109724df6b5e961925</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value/>
+        <variable display_value="">ae013101db5f40109724df6b5e9619f0</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=f2017101db5f40109724df6b5e961923"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>error_message</field>
+        <id>f2017101db5f40109724df6b5e961923</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>3a017101db5f40109724df6b5e961925</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.error_message}}</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>status</field>
+        <id>f2017101db5f40109724df6b5e961923</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e961925</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.status}}</value>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">f50903cb73c073005ae12ea3c4f6a719</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2.2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>f6017101db5f40109724df6b5e961917</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <ui_id>71767020-b597-4968-830b-2fe60f232802</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=f6017101db5f40109724df6b5e961917"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>f6017101db5f40109724df6b5e961917</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>f2017101db5f40109724df6b5e96191a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <value>New password is valid</value>
+        <variable display_value="">f0af19c1c32632002841b63b12d3aea3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=f6017101db5f40109724df6b5e961917"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition</field>
+        <id>f6017101db5f40109724df6b5e961917</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>72017101db5f40109724df6b5e96191a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value>{{8807ddbb-8309-4b5a-b0a4-8d294551ae5e.history_check_passed}}=True</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition_name</field>
+        <id>f6017101db5f40109724df6b5e961917</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>be017101db5f40109724df6b5e961919</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">f10903cb73c073005ae12ea3c4f6a721</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <logic_definition display_value="Assign Subflow Outputs">df4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2.3.1</order>
+        <outputs_assigned>status,error_message</outputs_assigned>
+        <outputs_to_assign/>
+        <parent_ui_id>00efb62b-3205-4186-86e7-f3619e107636</parent_ui_id>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e96191a</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>43c21a35-4879-4e21-8cdc-ee034af21e68</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=fa017101db5f40109724df6b5e96191a"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>fa017101db5f40109724df6b5e96191a</document_key>
+        <order>1</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>b2017101db5f40109724df6b5e96191d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value>You used that password recently. Choose a different password.</value>
+        <variable display_value="">62013101db5f40109724df6b5e9619fb</variable>
+    </sys_variable_value>
+    <sys_hub_flow_logic action="INSERT_OR_UPDATE">
+        <block display_value="">350903cb73c073005ae12ea3c4f6a72e</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <decision_table_inputs/>
+        <display_text/>
+        <extended_inputs/>
+        <flow display_value="Copy of Password Reset">56013101db5f40109724df6b5e9619cd</flow>
+        <inputs/>
+        <inputs/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <outputs_to_assign/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>fe017101db5f40109724df6b5e96191f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <ui_id>f59b8ff1-9897-4c62-87b8-3c2ac8e4e20a</ui_id>
+        <workflow_inputs/>
+        <workflow_reference/>
+    </sys_hub_flow_logic>
+    <sys_variable_value action="delete_multiple" query="document_key=fe017101db5f40109724df6b5e96191f"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_hub_flow_logic</document>
+        <document_key>fe017101db5f40109724df6b5e96191f</document_key>
+        <order>10</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>fa017101db5f40109724df6b5e961922</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <value>Request processed successfully</value>
+        <variable display_value="">f0af19c1c32632002841b63b12d3aea3</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="delete_multiple" query="id=fe017101db5f40109724df6b5e96191f"/>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition</field>
+        <id>fe017101db5f40109724df6b5e96191f</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>7a017101db5f40109724df6b5e961922</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value>{{d87882b7-c96a-40d4-af3b-df36e61c1825.status}}=Success</value>
+    </sys_element_mapping>
+    <sys_element_mapping action="INSERT_OR_UPDATE">
+        <field>condition_name</field>
+        <id>fe017101db5f40109724df6b5e96191f</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:20</sys_created_on>
+        <sys_id>b6017101db5f40109724df6b5e961922</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:20</sys_updated_on>
+        <table>var__m_sys_hub_flow_logic_input_af4e1945c3e232002841b63b12d3ae3e</table>
+        <value/>
+    </sys_element_mapping>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_input_56013101db5f40109724df6b5e9619cd^sys_idNOT IN62013101db5f40109724df6b5e9619ee,e6013101db5f40109724df6b5e9619e6"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>password_reset_request</element>
+        <help/>
+        <hint/>
+        <label>Password Reset Request</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_56013101db5f40109724df6b5e9619cd</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>62013101db5f40109724df6b5e9619ee</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Sample-test-app-plgn-convert" source="x_snc_plgin_conve">c61f298ddb1f40109724df6b5e961962</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>password</element>
+        <help/>
+        <hint/>
+        <label>Password</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_56013101db5f40109724df6b5e9619cd</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>e6013101db5f40109724df6b5e9619e6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Sample-test-app-plgn-convert" source="x_snc_plgin_conve">c61f298ddb1f40109724df6b5e961962</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd^sys_idNOT INa6017101db5f40109724df6b5e96190b,ae013101db5f40109724df6b5e9619f9"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>error_message</element>
+        <help/>
+        <hint/>
+        <label>Error Message</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>a6017101db5f40109724df6b5e96190b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Sample-test-app-plgn-convert" source="x_snc_plgin_conve">c61f298ddb1f40109724df6b5e961962</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>status</element>
+        <help/>
+        <hint/>
+        <label>Status</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+        <sys_id>ae013101db5f40109724df6b5e9619f9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Sample-test-app-plgn-convert" source="x_snc_plgin_conve">c61f298ddb1f40109724df6b5e961962</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd^sys_idNOT INe6013101db5f40109724df6b5e9619f4,66013101db5f40109724df6b5e9619f5"/>
+    <sys_choice field="status" table="var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Success</label>
+            <language>en</language>
+            <name>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</name>
+            <sequence>1</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>e6013101db5f40109724df6b5e9619f4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+            <value>Success</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>status</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Error</label>
+            <language>en</language>
+            <name>var__m_sys_hub_flow_output_56013101db5f40109724df6b5e9619cd</name>
+            <sequence>2</sequence>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2020-02-29 11:10:19</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>66013101db5f40109724df6b5e9619f5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2020-02-29 11:10:19</sys_updated_on>
+            <value>Error</value>
+        </sys_choice>
+    </sys_choice>
+</record_update>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_snc_plgin_conve.sample_convert</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>sample_convert</name>
+        <script><![CDATA[var sample_convert = Class.create();
+sample_convert.prototype = {
+    initialize: function() {
+    },
+
+    type: 'sample_convert'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-02-29 11:14:41</sys_created_on>
+        <sys_id>90f1fd01db5f40109724df6b5e96193d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sample_convert</sys_name>
+        <sys_package display_value="Sample-test-app-plgn-convert" source="x_snc_plgin_conve">c61f298ddb1f40109724df6b5e961962</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Sample-test-app-plgn-convert">c61f298ddb1f40109724df6b5e961962</sys_scope>
+        <sys_update_name>sys_script_include_90f1fd01db5f40109724df6b5e96193d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-02-29 11:14:41</sys_updated_on>
+    </sys_script_include>
+</record_update>
